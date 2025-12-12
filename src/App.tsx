@@ -1,7 +1,8 @@
-import { useState } from "react";
 import "./App.css";
-import { useQuery } from "convex/react";
-import { api } from "../convex/_generated/api";
+import { Authenticated, Unauthenticated, AuthLoading } from "convex/react";
+import { SignIn } from "./SignIn";
+import { SignOutButton } from "./SignOutButton";
+import { DinoGame } from "./DinoGame";
 
 // Auth + create lark customer (+ subscribe to free plan)
 // Report usage
@@ -9,24 +10,33 @@ import { api } from "../convex/_generated/api";
 // paywall + plan upgrades
 // lark customer portal for sub cancellations, invoices view
 
-function App() {
-  const [count, setCount] = useState(0);
-  const tasks = useQuery(api.tasks.get);
+function Content() {
+  return <DinoGame />;
+}
 
+function App() {
   return (
     <>
-      <h1>{"Convex + Lark Demo"}</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      {tasks?.map(({ _id, text }) => (
-        <div key={_id}>{text}</div>
-      ))}
+      <AuthLoading>Loading...</AuthLoading>
+      <Unauthenticated>
+        <SignIn />
+      </Unauthenticated>
+      <Authenticated>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            minHeight: "100vh",
+            gap: "2rem",
+            padding: "2rem",
+          }}
+        >
+          <Content />
+          <SignOutButton />
+        </div>
+      </Authenticated>
     </>
   );
 }
