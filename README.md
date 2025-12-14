@@ -2,10 +2,11 @@
 
 Follows this [quickstart guide](https://docs.uselark.ai/) to setup a quick billing integration for the demo app. 
 
-## Test it out in production?
+## Feel it out in production?
 Checkout https://vibes.uselark.ai/ for a similar sample project that uses Lark checkout and customer portal. 
 
 ## Running locally
 `npx conves dev`
 `npm run dev`
+
 
