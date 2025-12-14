@@ -10,5 +10,9 @@ export const createGameAttempt = mutation({
     const attemptID = crypto.randomUUID();
 
     console.log("Game attempt for user", userId, attemptID);
+    ctx.scheduler.runAfter(0, internal.lark.reportUsage, {
+      user_id: userId!,
+      idempotency_key: attemptID,
+    });
   },
 });
