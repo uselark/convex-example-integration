@@ -1,6 +1,12 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 
-export function DinoGame() {
+export function DinoGame({
+  onGameStart,
+  onGameOver,
+}: {
+  onGameStart: () => void;
+  onGameOver: () => void;
+}) {
   const [gameStarted, setGameStarted] = useState(false);
   const [isJumping, setIsJumping] = useState(false);
   const [gameOver, setGameOver] = useState(false);
@@ -122,6 +128,7 @@ export function DinoGame() {
             dinoTop > obsBottom
           ) {
             setGameOver(true);
+            onGameOver();
           }
         }
 
@@ -161,6 +168,7 @@ export function DinoGame() {
         onClick={() => {
           if (!gameStarted) {
             setGameStarted(true);
+            onGameStart();
           } else if (gameOver) {
             resetGame();
           } else {
