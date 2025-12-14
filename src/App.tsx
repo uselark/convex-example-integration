@@ -1,11 +1,12 @@
 import "./App.css";
-import { createContext, useContext, type ReactNode } from "react";
+import { createContext, useContext, useState, type ReactNode } from "react";
 import {
   Authenticated,
   Unauthenticated,
   AuthLoading,
   useQuery,
   useMutation,
+  useAction,
 } from "convex/react";
 import { SignIn } from "./SignIn";
 import { SignOutButton } from "./SignOutButton";
@@ -41,7 +42,107 @@ function UserIdWrapper({ children }: { children: ReactNode }) {
 
 function ContentWrapper() {
   const userId = useUserId();
-  return <DinoGame />;
+  const {
+    billingState,
+    error: billingStateError,
+    isLoading: isLoadingBillingState,
+    refreshBillingState,
+  } = useBillingManager({ subjectId: userId });
+  const [isPlaying, setIsPlaying] = useState(false);
+  const createGameAttempt = useMutation(api.attempts.createGameAttempt);
+  const updateSubscription = useAction(api.lark.updateSubscription);
+  const createCustomerPortalSession = useAction(
+    api.lark.createCustomerPortalSession
+  );
+
+  // Handle loading state
+  if (isLoadingBillingState) {
+    return <div>Loading...</div>;
+  }
+
+  if (billingStateError) {
+    return <div>Error: {billingStateError}</div>;
+  }
+
+  const userIsAllowedToUseProduct =
+    billingState!.creditsRemaining > 0 || billingState!.overageAllowed;
+
+  // const userIsAllowedToUseProduct = false;
+
+  if (!userIsAllowedToUseProduct) {
+    return (
+      <Paywall
+        plans={plans}
+        billingState={billingState!}
+        upgradeSubscriptionPlan={async ({ subscriptionId, newRateCardId }) => {
+          console.log("upgrading subscription", subscriptionId, newRateCardId);
+
+          const result = await updateSubscription({
+            subscription_id: subscriptionId,
+            new_rate_card_id: newRateCardId,
+            checkout_success_callback_url: window.location.href,
+            checkout_cancel_callback_url: window.location.href,
+          });
+
+          if (result.type === "requires_checkout") {
+            window.location.href = result.checkout_url!;
+
+            return Promise.resolve({ result_type: "redirected_for_checkout" });
+          } else if (result.type === "success") {
+            refreshBillingState();
+            return Promise.resolve({ result_type: "success" });
+          } else {
+            return Promise.reject(new Error("Failed to update subscription"));
+          }
+        }}
+      />
+    );
+  }
+
+  return (
+    <div>
+      <DinoGame
+        onGameStart={() => {
+          console.log("Game started");
+          createGameAttempt();
+          setIsPlaying(true);
+        }}
+        onGameOver={() => {
+          console.log("Game over");
+          setIsPlaying(false);
+          refreshBillingState();
+        }}
+      />
+      {!isPlaying && (
+        <div style={{ textAlign: "center" }}>
+          <span>
+            {`You have ${billingState!.creditsRemaining} credits remaining. `}
+          </span>
+          <span>
+            Click{" "}
+            <a
+              onClick={async () => {
+                const url = await createCustomerPortalSession({
+                  subject_id: userId,
+                  return_url: window.location.href,
+                });
+
+                window.open(url, "_blank");
+              }}
+              style={{
+                color: "#0066cc",
+                textDecoration: "underline",
+                cursor: "pointer",
+              }}
+            >
+              here{" "}
+            </a>{" "}
+            to manage your subscription.
+          </span>
+        </div>
+      )}
+    </div>
+  );
 }
 
 function App() {
