@@ -18,8 +18,10 @@ export type BillingState = {
 };
 export async function getBillingState({
   subjectId,
+  retryCount = 0,
 }: {
   subjectId: string;
+  retryCount?: number;
 }): Promise<BillingState> {
   try {
     const billingState = await lark.customerAccess.retrieveBillingState(
@@ -52,6 +54,18 @@ export async function getBillingState({
       overageAllowed,
     };
   } catch (err) {
+    // a hack to refetch billing state after a short delay
+    // since right after signup we asynchronously subscribe customer
+    // so fetching this right after will return 0 subs
+    if (retryCount < 3) {
+      console.log(
+        "error while fetching billing state, retrying in 1 second",
+        err
+      );
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      return await getBillingState({ subjectId, retryCount: retryCount + 1 });
+    }
+
     console.error("Error fetching billing state:", err);
     throw new Error("Error fetching billing state");
   }
