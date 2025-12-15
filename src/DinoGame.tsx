@@ -170,6 +170,7 @@ export function DinoGame({
             setGameStarted(true);
             onGameStart();
           } else if (gameOver) {
+            onGameStart();
             resetGame();
           } else {
             jump();

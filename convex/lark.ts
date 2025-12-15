@@ -4,7 +4,7 @@ import { Lark } from "lark-billing";
 
 const lark_client = new Lark({ apiKey: process.env.LARK_API_KEY });
 
-const LARK_FREE_PLAN_ID = "rc_boNfcQ2JRwzRZCil5oMneaCB";
+const LARK_FREE_PLAN_ID = "rc_VOd1dnsD885nm65WsF2m1ryk";
 const LARK_PRICING_METRIC_EVENT_NAME = "dinosaur_game_play";
 
 export const potentiallyCreateCustomerAndSubscribeToFreePlan = internalAction({

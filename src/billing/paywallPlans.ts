@@ -7,9 +7,9 @@ export interface PricingPlan {
   features: string[];
 }
 
-const FREE_PLAN_RATE_CARD_ID = "rc_boNfcQ2JRwzRZCil5oMneaCB";
-const STARTER_PLAN_RATE_CARD_ID = "rc_KY9r7ECBCY8ureNwozucoBLe";
-const PREMIUM_PLAN_RATE_CARD_ID = "rc_ESat2O4sTD5lCftH84I7OST4";
+const FREE_PLAN_RATE_CARD_ID = "rc_VOd1dnsD885nm65WsF2m1ryk";
+const STARTER_PLAN_RATE_CARD_ID = "rc_B5JMOGqEUtCNH2oZN5A8FMUI";
+const PREMIUM_PLAN_RATE_CARD_ID = "rc_IMMz6ZPqVOfV5ETCBDMW42y2";
 
 export const plans: PricingPlan[] = [
   {
