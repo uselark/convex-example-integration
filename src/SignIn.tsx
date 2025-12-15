@@ -1,4 +1,5 @@
 import { useAuthActions } from "@convex-dev/auth/react";
+import { ConvexError } from "convex/values";
 import { useState } from "react";
 
 export function SignIn() {
@@ -201,24 +202,20 @@ export function SignIn() {
             setError("");
             const formData = new FormData(event.currentTarget);
 
-            signIn("password", formData).catch((err) => {
-              console.error("Sign in error:", err);
-
-              // Handle specific error cases
-              const errorMessage = err.message || String(err);
-              if (errorMessage.includes("InvalidAccountId")) {
+            signIn("password", formData).catch((error) => {
+              console.error(error);
+              if (
+                error instanceof ConvexError &&
+                error.data === "INVALID_PASSWORD"
+              ) {
                 setError(
-                  "Account not found. Please sign up first or check your email."
+                  "Invalid password - check the requirements and try again."
                 );
-              } else if (errorMessage.includes("Invalid password")) {
-                if (step === "signUp") {
-                  setError("Password must be at least 8 characters long.");
-                } else {
-                  setError("Incorrect password. Please try again.");
-                }
               } else {
                 setError(
-                  errorMessage || "Authentication failed. Please try again."
+                  step === "signIn"
+                    ? "Could not sign in, did you mean to sign up?"
+                    : "Could not sign up, did you mean to sign in?"
                 );
               }
             });
