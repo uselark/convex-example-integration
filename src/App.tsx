@@ -147,30 +147,73 @@ function ContentWrapper() {
 
 function App() {
   return (
-    <>
-      <AuthLoading>Loading...</AuthLoading>
-      <Unauthenticated>
-        <SignIn />
-      </Unauthenticated>
-      <Authenticated>
-        <UserIdWrapper>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              minHeight: "100vh",
-              gap: "2rem",
-              padding: "2rem",
-            }}
-          >
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "space-between",
+        minHeight: "100vh",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          flex: 1,
+          gap: "2rem",
+          width: "100%",
+        }}
+      >
+        <AuthLoading>Loading...</AuthLoading>
+        <Unauthenticated>
+          <SignIn />
+        </Unauthenticated>
+        <Authenticated>
+          <UserIdWrapper>
             <ContentWrapper />
             <SignOutButton />
-          </div>
-        </UserIdWrapper>
-      </Authenticated>
-    </>
+          </UserIdWrapper>
+        </Authenticated>
+      </div>
+      <footer
+        style={{
+          textAlign: "center",
+          padding: "1rem",
+          color: "#666",
+          fontSize: "0.9rem",
+          borderTop: "1px solid #e0e0e0",
+          width: "100%",
+        }}
+      >
+        <span>Explore </span>
+        <a
+          href="https://docs.uselark.ai/"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            color: "#666",
+            textDecoration: "underline",
+          }}
+        >
+          Lark billing docs
+        </a>
+        <span> or </span>
+        <a
+          href="https://calendly.com/founders-uselark/30min"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            color: "#666",
+            textDecoration: "underline",
+          }}
+        >
+          schedule time with a founder
+        </a>
+      </footer>
+    </div>
   );
 }
 

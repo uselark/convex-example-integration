@@ -105,7 +105,7 @@ export function Paywall({
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="bg-white flex flex-col">
       <main className="flex-1 px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         {!billingState && error && (
           <div className="flex-1 flex flex-col items-center justify-center py-20">

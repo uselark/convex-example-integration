@@ -10,7 +10,7 @@ export function SignIn() {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    minHeight: "100vh",
+    minHeight: "90vh",
     padding: "20px",
   };
 
