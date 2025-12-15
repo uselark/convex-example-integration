@@ -1,6 +1,6 @@
 # [Convex](https://www.convex.dev/) + [Lark](https://uselark.ai/) billing integration example
 
-A fun little app at larkbillingconvex.netlify.app that demonstrates a billing integration with Lark.
+A fun little app at [larkbillingconvex.netlify.app](https://larkbillingconvex.netlify.app/) that demonstrates a billing integration with Lark.
 
 The billing integration was done in [this single PR](https://github.com/uselark/convex-example-integration/pull/1) (< 500 lines) by following this [quickstart guide](https://docs.uselark.ai/). 
 
