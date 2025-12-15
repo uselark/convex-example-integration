@@ -27,7 +27,7 @@ export function SignIn() {
   const titleStyle: React.CSSProperties = {
     fontSize: "2.5rem",
     fontWeight: "700",
-    marginBottom: "32px",
+    marginBottom: "12px",
     marginTop: "0",
     color: "#1f2937",
     textAlign: "center",
@@ -104,6 +104,15 @@ export function SignIn() {
     lineHeight: "1.5",
   };
 
+  const subtextStyle: React.CSSProperties = {
+    fontSize: "1rem",
+    color: "#6b7280",
+    textAlign: "center",
+    marginBottom: "32px",
+    lineHeight: "1.6",
+    fontWeight: "400",
+  };
+
   return (
     <div style={containerStyle}>
       <div style={cardStyle}>
@@ -148,6 +157,9 @@ export function SignIn() {
             Lark
           </a>
         </h2>
+        <div style={subtextStyle}>
+          Sign in to play a fun TRex game with 5 free credits!
+        </div>
 
         <div style={toggleContainerStyle}>
           <button
