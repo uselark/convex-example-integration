@@ -28,7 +28,15 @@ export function SignIn() {
     fontWeight: "700",
     marginBottom: "32px",
     marginTop: "0",
-    color: "#667eea",
+    color: "#1f2937",
+    textAlign: "center",
+  };
+
+  const linkStyle: React.CSSProperties = {
+    color: "#3b82f6",
+    textDecoration: "none",
+    transition: "all 0.2s ease",
+    borderBottom: "2px solid transparent",
   };
 
   const inputStyle: React.CSSProperties = {
@@ -98,7 +106,41 @@ export function SignIn() {
   return (
     <div style={containerStyle}>
       <div style={cardStyle}>
-        <h2 style={titleStyle}>Convex & Lark</h2>
+        <h2 style={titleStyle}>
+          <a
+            href="https://www.convex.dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={linkStyle}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = "#2563eb";
+              e.currentTarget.style.borderBottomColor = "#2563eb";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = "#3b82f6";
+              e.currentTarget.style.borderBottomColor = "transparent";
+            }}
+          >
+            Convex
+          </a>{" "}
+          +{" "}
+          <a
+            href="https://uselark.ai/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={linkStyle}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = "#2563eb";
+              e.currentTarget.style.borderBottomColor = "#2563eb";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = "#3b82f6";
+              e.currentTarget.style.borderBottomColor = "transparent";
+            }}
+          >
+            Lark
+          </a>
+        </h2>
 
         <div style={toggleContainerStyle}>
           <button
