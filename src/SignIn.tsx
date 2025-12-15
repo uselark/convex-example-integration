@@ -111,13 +111,16 @@ export function SignIn() {
             href="https://www.convex.dev"
             target="_blank"
             rel="noopener noreferrer"
-            style={linkStyle}
+            style={{
+              ...linkStyle,
+              color: "#f59e0b",
+            }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.color = "#2563eb";
-              e.currentTarget.style.borderBottomColor = "#2563eb";
+              e.currentTarget.style.color = "#d97706";
+              e.currentTarget.style.borderBottomColor = "#d97706";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.color = "#3b82f6";
+              e.currentTarget.style.color = "#f59e0b";
               e.currentTarget.style.borderBottomColor = "transparent";
             }}
           >
@@ -128,13 +131,16 @@ export function SignIn() {
             href="https://uselark.ai/"
             target="_blank"
             rel="noopener noreferrer"
-            style={linkStyle}
+            style={{
+              ...linkStyle,
+              color: "#a855f7",
+            }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.color = "#2563eb";
-              e.currentTarget.style.borderBottomColor = "#2563eb";
+              e.currentTarget.style.color = "#9333ea";
+              e.currentTarget.style.borderBottomColor = "#9333ea";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.color = "#3b82f6";
+              e.currentTarget.style.color = "#a855f7";
               e.currentTarget.style.borderBottomColor = "transparent";
             }}
           >
