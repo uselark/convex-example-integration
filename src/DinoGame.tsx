@@ -37,6 +37,7 @@ export function DinoGame({
 
   const resetGame = useCallback(() => {
     setGameStarted(true);
+    onGameStart();
     setGameOver(false);
     setScore(0);
     setObstacles([]);
@@ -53,6 +54,7 @@ export function DinoGame({
         e.preventDefault();
         if (!gameStarted) {
           setGameStarted(true);
+          onGameStart();
         } else if (gameOver) {
           resetGame();
         } else {
@@ -170,7 +172,6 @@ export function DinoGame({
             setGameStarted(true);
             onGameStart();
           } else if (gameOver) {
-            onGameStart();
             resetGame();
           } else {
             jump();
